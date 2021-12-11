@@ -76,7 +76,7 @@ const questions = [(
         type: 'list', 
         name: 'license', 
         message: 'Choose a license for your project.', 
-        choices: ['MIT License', 'Apache License 2.0', 'Boost Software License 1.0', 'GNU GPLv3', 'GNU GPL v2', 'GNU AGPL v3', 'GNU LGPL v3', 'IBM Public License 1.0', 'Mozilla Public License 2.0']
+        choices: ['MIT License', 'Apache License 2.0', 'Boost Software License 1.0', 'GNU GPLv3', 'GNU GPL v2', 'GNU AGPL v3', 'GNU LGPL v3', 'Mozilla Public License 2.0']
     }
 )]; 
 
