@@ -1,10 +1,10 @@
 
   # Sky 
 
-  ![Badge](https://img.shields.io/badge/license-Mozilla-green)
+  ![Badge](https://img.shields.io/badge/license-Apache-green)
 
   ## Description
-  weather based app
+  Sky is a weather based application that provides the weather forecast for cities searched in the United States
 
   ## Table of Contents
 
@@ -19,23 +19,25 @@
 
   ## Installation 
 
-  no installation
+  No installation process needed
 
   ## Usage 
 
-  to provide city weather forecast in US
+  To provide the weather
 
   ## License
 
-  This application is covered under the Mozilla License. 
+  This application is covered under the Apache License. 
 
   ## Contributing 
 
-  no guidelines
+  No guidelines
 
   ## Tests 
 
-  no tests
+  No tests
+
+  ---
 
   ## Questions 
 
