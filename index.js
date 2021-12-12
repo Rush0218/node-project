@@ -1,56 +1,39 @@
 // TODO: Include packages needed for this application
-const fs = require('fs')
-const util = require('util')
 const inquirer = require('inquirer'); 
-const generate = require('./generateMarkdown.js'); 
+const fs = require('fs'); 
+const util = require('util'); 
+const generateMarkdown = require('./utils/generateMarkdown'); 
+const asyncFile = util.promisify(fs.writeFile);
 
 
+//confirm answers 
+const confrimAnswer = async (input) => {
+    if(input === "") {
+        return console.log('Please provide a valid entry!')
+    }
+    return true; 
+}; 
 
-// TODO: Create an array of questions for user input
-const questions = [(
+//create an array of questions for user input
+function questions(){ 
+    return inquirer.prompt([
     {
         type: 'input', 
         name: 'username', 
         message: 'What is your github username?', 
-        validate: function (response) {
-            if(response === "") {
-                return console.log('Please provide a valid GitHub username!')
-            }
-            return true; 
-        }
-    }, 
-    {
-        type: 'input', 
-        name: 'repo', 
-        message: "what is the name of your GitHub repository?", 
-        validate: function(response) {
-            if(response === "") {
-                return console.log('Please provide a vaild GitHub repository name!')
-            }
-            return true; 
-        }
+        validate: confrimAnswer
     }, 
     {
         type: 'input',
         name: 'title', 
         message: 'What is the title of your project?', 
-        validate: function (response) {
-            if(response === "") {
-                return console.log('Please provide a valid title for your project!')
-            }
-            return true; 
-        }
+        validate: confrimAnswer
     }, 
     {
         type: 'input', 
         name: 'description', 
         message: 'Please provide a description of your project.', 
-        validate: function (response) {
-            if(response === "") {
-                return console.log('Please provide a valid description of your project!')
-            }
-            return true; 
-        }
+        validate: confrimAnswer
     }, 
     {
         type: 'input', 
@@ -76,26 +59,30 @@ const questions = [(
         type: 'list', 
         name: 'license', 
         message: 'Choose a license for your project.', 
-        choices: ['MIT License', 'Apache License 2.0', 'Boost Software License 1.0', 'GNU GPLv3', 'GNU GPL v2', 'GNU AGPL v3', 'GNU LGPL v3', 'Mozilla Public License 2.0']
+        choices: ['MIT', 'Apache', 'ISC', 'GNU', 'Mozilla', 'Academic', 'Open']
+    }, 
+    {
+        type: 'input', 
+        name: 'email', 
+        message: 'Please provide an email address for contact information.'
     }
-)]; 
-
-
-// TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, err => {
-        if(err) {
-            return console.log(err)
-        }
-        console.log("The README.md file was successfully generated!")
-    }); 
+    ]); 
 }; 
 
-// TODO: Create a function to initialize app
-function init() {
-    const userResponse = inquirer.prompt(questions); 
 
-}
+//initialize app
+async function init() {
+    try {
+        const userResponses = await questions(); 
+        const markdown = generateMarkdown(userResponses); 
 
-// Function call to initialize app
+       await asyncFile('ex-README.md', markdown); 
+       console.log('README.md file was successfully generated!')
+    } catch (err) {
+        console.log(err); 
+    }
+}; 
+
+
+//function call
 init();
